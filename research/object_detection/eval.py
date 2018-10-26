@@ -44,6 +44,7 @@ Example usage:
         --input_config_path=eval_input_config.pbtxt
 """
 import functools
+import logging
 import os
 import tensorflow as tf
 
@@ -57,6 +58,7 @@ from object_detection.utils import label_map_util
 
 
 tf.logging.set_verbosity(tf.logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 
 flags = tf.app.flags
 flags.DEFINE_boolean('eval_training_data', False,

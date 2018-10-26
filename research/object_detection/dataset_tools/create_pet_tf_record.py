@@ -228,6 +228,7 @@ def create_tf_record(output_filename,
       smaller file sizes.
   """
   writer = tf.python_io.TFRecordWriter(output_filename)
+  count_example = 0
   for idx, example in enumerate(examples):
     if idx % 100 == 0:
       logging.info('On image %d of %d', idx, len(examples))
@@ -251,10 +252,12 @@ def create_tf_record(output_filename,
           faces_only=faces_only,
           mask_type=mask_type)
       writer.write(tf_example.SerializeToString())
+      count_example += 1
     except ValueError:
       logging.warning('Invalid example: %s, ignoring.', xml_path)
 
   writer.close()
+  print('%d examples are written to %s' % (count_example, output_filename))
 
 
 # TODO(derekjchow): Add test for pet/PASCAL main files.

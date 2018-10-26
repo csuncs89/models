@@ -44,6 +44,8 @@ def write_metrics(metrics, global_step, summary_dir):
   logging.info('Writing metrics to tf summary.')
   summary_writer = tf.summary.FileWriterCache.get(summary_dir)
   for key in sorted(metrics):
+    print(key)
+    print(metrics[key])
     summary = tf.Summary(value=[
         tf.Summary.Value(tag=key, simple_value=metrics[key]),
     ])
@@ -279,7 +281,7 @@ def _run_checkpoint_once(tensor_dict,
   with tf.contrib.slim.queues.QueueRunners(sess):
     try:
       for batch in range(int(num_batches)):
-        if (batch + 1) % 100 == 0:
+        if (batch + 1) % 5 == 0:
           logging.info('Running eval ops batch %d/%d', batch + 1, num_batches)
         if not batch_processor:
           try:
